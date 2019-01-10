@@ -1,13 +1,13 @@
 {
   "name": "devicelist-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI Tool that lists & initilizes available xcode simulator devices for React Native",
   "main": "simdev-cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "lsim": "./sim-cli.js"
+    "lsim": "./simdev-cli.js"
   },
   "author": "",
   "license": "ISC",

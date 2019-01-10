@@ -12,7 +12,7 @@ const log = console.log;
 
 program
   .version("0.1.0")
-  .option("-d, --device", "Device")
+  .option("-s, --sim", "Simulator")
   .parse(process.argv);
 
 var selectedDevice = program.args.join(" ");
