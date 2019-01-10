@@ -50,16 +50,33 @@ if (fs.existsSync(currentPath + "/package.json")) {
         const yourAnswer = copyList[selectedDevice];
         run(yourAnswer);
       } else {
-        rl.question(chalk.blue("\n Test"), answer => {
-          const yourAnswer = copyList[answer];
-          run(yourAnswer);
-          rl.close();
-        });
+        rl.question(
+          chalk.blue("Select a Device ... i.e 10\nAnd press Enter\n"),
+          answer => {
+            const yourAnswer = copyList[answer];
+            run(yourAnswer);
+            rl.close();
+          }
+        );
       }
     }
   });
 } else {
   chalk.red(
     "This Project needs to be initialized for React-Native \n See https://facebook.github.io/react-native/docs/getting-started.html for more details"
+  );
+}
+
+function run(param) {
+  log(chalk.green("Selected Device => " + param));
+  exec(
+    'react-native run-ios --simulator="' + param + '"',
+    (error, stdout, stderr) => {
+      console.log(stdout);
+      if (stderr == null) {
+        const spinner = ora("Running on Simulator").start();
+      }
+      console.log("" + stderr);
+    }
   );
 }
