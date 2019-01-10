@@ -68,7 +68,7 @@ if (fs.existsSync(currentPath + "/package.json")) {
 }
 
 function run(param) {
-  log(chalk.green("Selected Device => " + param));
+  log(chalk.green("Starting.... " + param));
   exec(
     'react-native run-ios --simulator="' + param + '"',
     (error, stdout, stderr) => {
@@ -76,7 +76,7 @@ function run(param) {
       if (stderr == null) {
         const spinner = ora("Running on Simulator").start();
       }
-      console.log("" + stderr);
+      console.log("Running!!!" + stderr);
     }
   );
 }
