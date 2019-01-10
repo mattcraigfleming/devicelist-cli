@@ -18,7 +18,14 @@ program
 var selectedDevice = program.args.join(" ");
 
 if (fs.existsSync(currentPath + "/package.json")) {
-  // return JSON list of available devices
+  deviceList();
+} else {
+  chalk.red(
+    "This Project needs to be initialized for React-Native \n See https://facebook.github.io/react-native/docs/getting-started.html for more details"
+  );
+}
+
+function deviceList() {
   exec("xcrun simctl list devices --json", (error, stdout, stderr) => {
     const simulators = JSON.parse(stdout);
     if (simulators.devices) {
@@ -51,7 +58,7 @@ if (fs.existsSync(currentPath + "/package.json")) {
         run(yourAnswer);
       } else {
         rl.question(
-          chalk.blue("Select a Device ... i.e 10\nAnd press Enter\n"),
+          chalk.blue("Select a Device ... i.e 10\nAnd Press Enter\n"),
           answer => {
             const yourAnswer = copyList[answer];
             run(yourAnswer);
@@ -61,22 +68,28 @@ if (fs.existsSync(currentPath + "/package.json")) {
       }
     }
   });
-} else {
-  chalk.red(
-    "This Project needs to be initialized for React-Native \n See https://facebook.github.io/react-native/docs/getting-started.html for more details"
-  );
 }
 
 function run(param) {
-  log(chalk.green("Starting.... " + param));
-  exec(
-    'react-native run-ios --simulator="' + param + '"',
-    (error, stdout, stderr) => {
-      console.log(stdout);
-      if (stderr == null) {
-        const spinner = ora("Running on Simulator").start();
+  if (param == null || "undefined") {
+    console.log(
+      chalk.red("The device number must not be undefined or 0\n") +
+        chalk.green("Relisting devices ...")
+    );
+    setTimeout(function() {
+      deviceList();
+    }, 1800);
+  } else {
+    log(chalk.blue("Starting.... " + param));
+    exec(
+      'react-native run-ios --simulator="' + param + '"',
+      (error, stdout, stderr) => {
+        console.log(chalk.red(stdout));
+        if (stderr == null) {
+          const spinner = ora(chalk.green("Running on Simulator")).start();
+        }
+        console.log(chalk.blue("Error => ") + chalk.red(stderr));
       }
-      console.log("Running!!!" + stderr);
-    }
-  );
+    );
+  }
 }
