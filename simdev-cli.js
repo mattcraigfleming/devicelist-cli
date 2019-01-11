@@ -71,25 +71,24 @@ function deviceList() {
 }
 
 function run(param) {
-  if (param == null || "undefined") {
-    console.log(
-      chalk.red("The device number must not be undefined or 0\n") +
-        chalk.green("Relisting devices ...")
-    );
-    // setTimeout(function() {
-    //   deviceList();
-    // }, 1800);
-  } else {
-    log(chalk.blue("Starting.... " + param));
-    exec(
-      'react-native run-ios --simulator="' + param + '"',
-      (error, stdout, stderr) => {
-        console.log(chalk.red(stdout));
-        if (stderr == null) {
-          const spinner = ora(chalk.green("Running on Simulator")).start();
-        }
-        console.log(chalk.blue("Error => ") + chalk.red(stderr));
+  // if (param == null || "undefined") {
+  //   console.log(
+  //     chalk.red("The device number must not be undefined or 0\n") +
+  //       chalk.green("Relisting devices ...")
+  //   );
+  //   // setTimeout(function() {
+  //   //   deviceList();
+  //   // }, 1800);
+  // } else {
+  log(chalk.blue("Starting.... " + param));
+  exec(
+    'react-native run-ios --simulator="' + param + '"',
+    (error, stdout, stderr) => {
+      console.log(chalk.red(stdout));
+      if (stderr == null) {
+        const spinner = ora(chalk.green("Running on Simulator")).start();
       }
-    );
-  }
+      console.log(chalk.blue("Error => ") + chalk.red(stderr));
+    }
+  );
 }
