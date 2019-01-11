@@ -76,9 +76,9 @@ function run(param) {
       chalk.red("The device number must not be undefined or 0\n") +
         chalk.green("Relisting devices ...")
     );
-    setTimeout(function() {
-      deviceList();
-    }, 1800);
+    // setTimeout(function() {
+    //   deviceList();
+    // }, 1800);
   } else {
     log(chalk.blue("Starting.... " + param));
     exec(
